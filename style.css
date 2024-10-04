@@ -1,0 +1,72 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+video {
+    width: 90%; /* Largura responsiva para dispositivos móveis */
+    max-width: 420px; /* Largura máxima */
+    height: auto; /* Altura automática para manter a proporção */
+    margin-bottom: 20px; /* Espaço abaixo do vídeo */
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+audio {
+    width: 90%; /* Largura responsiva */
+    max-width: 300px; /* Largura máxima */
+    margin: 20px 0; /* Espaço acima e abaixo do player */
+}
+
+iframe {
+    border-radius: 12px; /* Bordas arredondadas para o iframe */
+    width: 90%; /* Largura responsiva */
+    max-width: 500px; /* Largura máxima */
+    height: 352px; /* Altura do iframe */
+    margin-bottom: 20px; /* Espaço abaixo do iframe */
+}
+
+.heart {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    transform: rotate(45deg);
+    animation: float 0.05s infinite;
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -15px;
+    left: 0;
+}
+
+.heart::after {
+    left: 15px;
+    top: 0;
+}
+
+@keyframes spiral {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+    }
+}

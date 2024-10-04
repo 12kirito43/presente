@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corações em Espiral</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* Alinha os elementos em coluna */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #030000;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        audio {
+            width: 300px;
+            margin-bottom: 20px; /* Espaçamento abaixo do reprodutor de música */
+        }
+
+        video {
+            width: 428px; /* Largura do vídeo */
+            height: 819px; /* Altura do vídeo */
+        }
+
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            transform: rotate(45deg);
+            animation: float 0.05s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -15px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 15px;
+            top: 0;
+        }
+
+        @keyframes spiral {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <audio id="player" controls autoplay>
+            <source id="audioSource" src="" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div>
+        <video src="./MB.mp4" controls autoplay muted></video>
+    </div>
+
+    <script>
+        // Função para criar novos corações em espiral
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() < 0.5 ? '10vw' : '90vw'; // Lado aleatório
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's'; // Duração aleatória
+            heart.style.animationName = 'spiral'; // Define a animação
+            document.body.appendChild(heart);
+
+            // Remover o coração após a animação
+            setTimeout(() => {
+                heart.remove();
+            }, 5000); // Tempo para o coração desaparecer
+        }
+
+        // Criar corações a cada 500ms
+        setInterval(createHeart, 500);
+
+        const playlist = [
+            'musicas/spotifydown.com - Chasing Cars.mp3',
+            'musicas/spotifydown.com - Far Away.mp3',
+            'musicas/spotifydown.com - Heaven.mp3',
+            'musicas/spotifydown.com - Love Me Tender.mp3',
+            'musicas/spotifydown.com - Making Love Out of Nothing at All.mp3',
+            'musicas/spotifydown.com - November Rain.mp3',
+            'musicas/spotifydown.com - Photograph.mp3',
+            'musicas/DBGT - sorriso resplandecente (tradução_legendado).mp3',
+        ];
+
+        let currentTrack = 0;
+        const player = document.getElementById('player');
+        const audioSource = document.getElementById('audioSource');
+
+        function playTrack() {
+            audioSource.src = playlist[currentTrack];
+            player.load();
+            player.play();
+        }
+
+        player.addEventListener('ended', () => {
+            currentTrack = (currentTrack + 1) % playlist.length;
+            playTrack();
+        });
+
+        // Iniciar a primeira música
+        playTrack();
+    </script>
+</body>
+</html>
